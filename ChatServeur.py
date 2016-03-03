@@ -138,7 +138,7 @@ class Chatserveur():
     #To quit the software
     def _quit(self, ID):
         self.__connectedpeople.remove(ID)
-        response = {'message':"""\nYou are now deconnected from the B&T chat.
+        response = {'message':"""\nYou are now disconnected from the B&T chat.
                     \nSee you soon!""", 'disconnected':True}
         self.datatoclient(response)
 
