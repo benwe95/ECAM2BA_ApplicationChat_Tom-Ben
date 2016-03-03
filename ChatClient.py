@@ -386,6 +386,7 @@ class Chatclient():
                     newparcel = {'command':'saveconversation', 'data':(self.__ID, anotheruserID, self.__conversation)}
                     exitresponse = self.datatoserver(newparcel)
                 else:
+                    self.__conversation.append([' '.join(message), self.__ID])
                     #Add the ID of the user at the end of the message for the received process
                     message.append(self.__ID)
                     message = ' '.join(message)
@@ -403,7 +404,7 @@ class Chatclient():
     def send(self, param):
         if self.__correspondentaddress is not None:
             try:
-                self.__conversation.append(param)
+                # self.__conversation.append(param)
                 message = param.encode()
                 totalsent = 0
                 while totalsent < len(message):
@@ -427,17 +428,17 @@ class Chatclient():
                 data, address = self.__cp2p.recvfrom(1024)
                 data = data.decode().split()
                 expID = data[-1]
-                # del(data[-1])
-                # data = ' '.join(data)
+                del(data[-1])
+                data = ' '.join(data)
 
                 #If the users are already connected together print the message received...
                 if address == self.__correspondentaddress:
-                    del(data[-1])
-                    data = ' '.join(data)
+                    # del(data[-1])
+                    # data = ' '.join(data)
                     print(data.rjust(200))
                 #...else warn the user but avoid spamming
                 else:
-                    self.__newmessages.append(data)
+                    self.__newmessages.append([data, expID])
                     if expID not in self.__newcorresp:
                         self.__newcorresp.add(expID)
                         print("\nNew message from: {} \n".format(expID))
@@ -452,34 +453,26 @@ class Chatclient():
         #Makes a copy of the list
         copyconversation = []
         for message in self.__conversation:
-            copyconversation.append(message.split())
+            copyconversation.append(message)
 
         #Prints the messages that were saved on the server. Justifies the text according to the sender
         if len(copyconversation) > 0:
             for message in copyconversation:
-                if message[-1] == self.__ID:
-                    del(message[-1])
-                    message = ' '.join(message)
-                    print(message)
-                elif message[-1] == self.__destID:
-                    del(message[-1])
-                    message = ' '.join(message)
-                    print(message.rjust(200))
+                if message[1] == self.__ID:
+                    print(message[0])
+                elif message[1] == self.__destID:
+                    print(message[0].rjust(200))
 
         #Prints the messages that were sent while the correspondents weren't connected together and
         #saves them in the list of conversations
         if len(self.__newmessages) > 0:
             i = 0
             while i < len(self.__newmessages):
-                if self.__newmessages[i][-1] == self.__destID:
+                if self.__newmessages[i][1] == self.__destID:
                     #Adds to the conversation list the new message as a string
-                    self.__newmessages[i] = ' '.join(self.__newmessages[i])
                     self.__conversation.append(self.__newmessages[i])
                     #Remove the ID of the user and transforms the message as a string
-                    self.__newmessages[i] = self.__newmessages[i].split()
-                    del(self.__newmessages[i][-1])
-                    self.__newmessages[i]=' '.join(self.__newmessages[i])
-                    print((self.__newmessages[i]).rjust(200))
+                    print((self.__newmessages[i][0]).rjust(200))
                     del(self.__newmessages[i])
                 else:
                     i+=1

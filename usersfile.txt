@@ -1,1 +1,1 @@
-{}
+{"Invite": {"profil": {"Country": "", "Last name": "vite", "Hobbies": "", "Age": "", "First name": "In", "Profession": ""}, "contacts": ["Root"], "blocked": [], "socket": ["127.0.0.1", 4444], "password": "i"}, "Root": {"profil": {"First name": "Ben", "Last name": "We", "Hobbies": "", "Age": "", "Country": "", "Profession": ""}, "contacts": [], "blocked": [], "socket": ["127.0.0.1", 7777], "password": "r"}}

@@ -10,7 +10,7 @@
 
 /users		    -->  to display the users which are connected
 
-/contact -a <user>  -->  to add <user> to your list of contact(s)
+/contact <user>     -->  to add <user> to your list of contact(s)
 
 /showcontacts	    -->  to display your list of contact(s)
 

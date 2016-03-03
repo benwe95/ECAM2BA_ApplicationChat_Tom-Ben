@@ -1,1 +1,1 @@
-{}
+{"Invite": {"Root": ["Coucou Root! Invite"]}, "Root": {"Invite": ["Coucou Root! Invite", "Hey salut! Root"]}}
