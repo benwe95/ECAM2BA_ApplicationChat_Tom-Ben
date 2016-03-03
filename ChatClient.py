@@ -419,6 +419,7 @@ class Chatclient():
     #       saves the messages if they're not.
     def receive(self):
         #The list of message(s) received while the user wasn't connected with the correspondent
+        #Each message is stored with the ID of the sender
         self.__newmessages=[]
         #The set of correspondent(s) which tried to reach the user
         self.__newcorresp=set()
@@ -433,8 +434,6 @@ class Chatclient():
 
                 #If the users are already connected together print the message received...
                 if address == self.__correspondentaddress:
-                    # del(data[-1])
-                    # data = ' '.join(data)
                     print(data.rjust(200))
                 #...else warn the user but avoid spamming
                 else:
@@ -469,9 +468,7 @@ class Chatclient():
             i = 0
             while i < len(self.__newmessages):
                 if self.__newmessages[i][1] == self.__destID:
-                    #Adds to the conversation list the new message as a string
                     self.__conversation.append(self.__newmessages[i])
-                    #Remove the ID of the user and transforms the message as a string
                     print((self.__newmessages[i][0]).rjust(200))
                     del(self.__newmessages[i])
                 else:
